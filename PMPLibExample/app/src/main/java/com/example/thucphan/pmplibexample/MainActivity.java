@@ -1,22 +1,37 @@
 package com.example.thucphan.pmplibexample;
 
 import android.content.DialogInterface;
+import android.os.AsyncTask;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import com.example.thucphan.pmplibexample.base.ReceiverActivity;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends ReceiverActivity implements View.OnClickListener {
 
     AppCompatButton mChooseTopicBtn;
-
+    RecyclerView mRecyclerView;
+    private MyAdapter mAdapter;
+    private List<String> mInformationList ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mChooseTopicBtn = (AppCompatButton) findViewById(R.id.chooseTopicBtn);
         mChooseTopicBtn.setOnClickListener(this);
+
+        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
+        mAdapter = new MyAdapter();
+        mRecyclerView.setAdapter(mAdapter);
+        mInformationList  = new ArrayList<>();
     }
 
     @Override
@@ -28,14 +43,47 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+    @Override
+    public void handleMessage(String event, String message) {
+        if (event.equals(MyMessageListener.EVENT_SUBSCRIBE_CONFIRM)){
+            mInformationList.add(message);
+            mAdapter.setItems(mInformationList);
+        }
+    }
+
     private void showTopicDialog() {
+        final String[] strings = getResources().getStringArray(R.array.topic_arrays);
         AlertDialog dialog = new AlertDialog.Builder(this).setTitle(R.string.choice_topic)
-                .setItems(getResources().getStringArray(R.array.topic_arrays), new DialogInterface.OnClickListener() {
+                .setItems(strings, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-
+                        subscribeTopic(strings[which]);
                     }
                 }).create();
         dialog.show();
     }
+
+    private void subscribeTopic(String topicName) {
+        AsyncTask<String, Void, Void> task = new AsyncTask<String, Void, Void>() {
+            @Override
+            protected void onPreExecute() {
+                super.onPreExecute();
+                showIndeterminateProgressDialog("Subscribe", "Please wait");
+            }
+
+            @Override
+            protected Void doInBackground(String... strings) {
+                PMPConnectionManager.getInstance().subscribe(strings[0]);
+                return null;
+            }
+
+            @Override
+            protected void onPostExecute(Void aVoid) {
+                super.onPostExecute(aVoid);
+                dismissIndeterminateProgressDialog();
+            }
+        };
+        task.execute(topicName);
+    }
+
 }

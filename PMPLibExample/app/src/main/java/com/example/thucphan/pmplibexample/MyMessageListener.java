@@ -1,6 +1,8 @@
 package com.example.thucphan.pmplibexample;
 
-import com.example.thucphan.pmplibexample.listener.LoginListener;
+import android.content.Intent;
+import android.support.v4.content.LocalBroadcastManager;
+
 import com.phillip.pmp.api.MessageListener;
 import com.phillip.pmp.common.PMPException;
 
@@ -9,59 +11,57 @@ import com.phillip.pmp.common.PMPException;
  */
 public class MyMessageListener implements MessageListener {
 
-    private LoginListener loginListener;
-
-    public LoginListener getLoginListener() {
-        return loginListener;
-    }
-
-    public void setLoginListener(LoginListener loginListener) {
-        this.loginListener = loginListener;
-    }
+    public static final String EVENT_LOGIN = "com.example.EVENT_LOGIN";
+    public static final String EVENT_QUERY = "com.example.EVENT_QUERY";
+    public static final String EVENT_SUBSCRIBE = "com.example.EVENT_SUBSCRIBE";
+    public static final String EVENT_CONNECTION_STATUS = "com.example.EVENT_CONNECTION_STATUS";
+    public static final String EVENT_SUBSCRIBE_CONFIRM = "com.example.EVENT_SUBSCRIBE_CONFIRM";
+    public static final String EVENT_DEBUG = "com.example.EVENT_DEBUG";
+    public static final String EVENT_EXCEPTION = "com.example.EVENT_EXCEPTION";
 
     public void loginCallback(String message) throws PMPException {
         // call here when API login PMP Server success
-        System.out.println("loginCallback:" + message);
-        loginListener.onLoginSuccess(message);
+        sendBroadCast(EVENT_LOGIN, message);
     }
 
     public void subscribeCallback(String message) throws PMPException {
         // call here when API receive subscrib message
-        System.out.println("subscribeCallback:" + message);
-
+        sendBroadCast(EVENT_SUBSCRIBE, message);
     }
 
     public void queryCallback(String message) throws PMPException {
         // call here when API receive query message
-        System.out.println("queryCallback:" + message);
-
+        sendBroadCast(EVENT_QUERY, message);
     }
 
     public void connectionStatusCallback(String message) throws PMPException {
         // call here when API inner status happen change or error
-        System.out.println("connectionStatusCallback:" + message);
-
+        sendBroadCast(EVENT_CONNECTION_STATUS, message);
     }
 
     public void subscribeQueryConfirmCallback(String message)
             throws PMPException {
-        // call here when API receive query or subscribe acknowledgement message
-        System.out.println("subscribeQueryConfirmCallback:" + message);
+        sendBroadCast(EVENT_SUBSCRIBE_CONFIRM, message);
 
     }
 
     @Override
-    public void debugCallback(String arg0) throws PMPException {
-        // TODO Auto-generated method stub
-        System.out.println("debugCallback:" + arg0);
+    public void debugCallback(String message) throws PMPException {
+//        sendBroadCast(EVENT_DEBUG, message);
 
     }
 
     @Override
-    public void exceptionCallback(String arg0) {
-        // TODO Auto-generated method stub
-        System.out.println("exceptionCallback:" + arg0);
+    public void exceptionCallback(String message) {
+        sendBroadCast(EVENT_EXCEPTION, message);
 
     }
 
+    private void sendBroadCast(String event, String message) {
+        Intent intent = new Intent();
+        intent.setAction("event");
+        intent.putExtra("event", event);
+        intent.putExtra("message", message);
+        LocalBroadcastManager.getInstance(MyApplication.getInstance()).sendBroadcast(intent);
+    }
 }

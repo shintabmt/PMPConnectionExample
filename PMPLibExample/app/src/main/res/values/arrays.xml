@@ -1,10 +1,10 @@
 <resources>
     <string-array name="topic_arrays">
-        <item>\\SGXSE\\[SGXSE]TOP01</item>
-        <item>\\SGXSE\\[SGXSE]TOP02</item>
-        <item>\\SGXSE\\[SGXSE]TOP03</item>
-        <item>\\SGXSE\\[SGXSE]TOP04</item>
-        <item>\\SGXSE\\[SGXSE]TOP05</item>
-        <item>\\SGXSE\\[SGXSE]TOP05</item>
+        <item>\\\\SGXSE\\\\[SGXSE]TOP01</item>
+        <item>\\\\SGXSE\\\\[SGXSE]TOP02</item>
+        <item>\\\\SGXSE\\\\[SGXSE]TOP03</item>
+        <item>\\\\SGXSE\\\\[SGXSE]TOP04</item>
+        <item>\\\\SGXSE\\\\[SGXSE]TOP05</item>
+        <item>\\\\SGXSE\\\\[SGXSE]TOP06</item>
     </string-array>
 </resources>

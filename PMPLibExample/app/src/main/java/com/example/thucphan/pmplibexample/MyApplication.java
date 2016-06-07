@@ -2,8 +2,7 @@ package com.example.thucphan.pmplibexample;
 
 import android.app.Application;
 
-import com.phillip.pmp.common.PMPException;
-import com.phillip.pmp.core.PMPConnection;
+import com.example.thucphan.pmplibexample.managers.PMPConnectionManager;
 
 /**
  * Created by thuc.phan on 6/6/2016.

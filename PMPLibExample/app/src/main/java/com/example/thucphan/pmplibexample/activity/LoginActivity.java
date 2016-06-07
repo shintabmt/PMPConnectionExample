@@ -1,16 +1,17 @@
-package com.example.thucphan.pmplibexample;
+package com.example.thucphan.pmplibexample.activity;
 
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.thucphan.pmplibexample.managers.MyMessageListener;
+import com.example.thucphan.pmplibexample.managers.PMPConnectionManager;
+import com.example.thucphan.pmplibexample.R;
 import com.example.thucphan.pmplibexample.base.ReceiverActivity;
 
 /**
@@ -48,7 +49,7 @@ public class LoginActivity extends ReceiverActivity implements View.OnClickListe
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                showIndeterminateProgressDialog("Login", "Please Wait");
+                showIndeterminateProgressDialog(R.string.login, R.string.please_wait);
             }
 
             @Override

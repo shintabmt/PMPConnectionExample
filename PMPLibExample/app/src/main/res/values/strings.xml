@@ -1,5 +1,9 @@
 <resources>
     <string name="app_name">PMPLibExample</string>
     <string name="choice_topic">Choose Topic</string>
-
+    <string name="subscribe">Subscribe</string>
+    <string name="please_wait">Please wait</string>
+    <string name="login">Login</string>
+    <string name="err_msg_id">Enter valid id</string>
+    <string name="err_msg_pwd">Enter the password</string>
 </resources>

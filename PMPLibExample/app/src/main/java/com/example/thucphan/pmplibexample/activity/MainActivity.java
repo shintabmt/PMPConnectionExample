@@ -1,4 +1,4 @@
-package com.example.thucphan.pmplibexample;
+package com.example.thucphan.pmplibexample.activity;
 
 import android.content.DialogInterface;
 import android.os.AsyncTask;
@@ -7,8 +7,13 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 
+import com.example.thucphan.pmplibexample.views.MyAdapter;
+import com.example.thucphan.pmplibexample.managers.MyMessageListener;
+import com.example.thucphan.pmplibexample.managers.PMPConnectionManager;
+import com.example.thucphan.pmplibexample.R;
 import com.example.thucphan.pmplibexample.base.ReceiverActivity;
 
 import java.util.ArrayList;
@@ -19,7 +24,8 @@ public class MainActivity extends ReceiverActivity implements View.OnClickListen
     AppCompatButton mChooseTopicBtn;
     RecyclerView mRecyclerView;
     private MyAdapter mAdapter;
-    private List<String> mInformationList ;
+    private List<String> mInformationList;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +37,7 @@ public class MainActivity extends ReceiverActivity implements View.OnClickListen
         mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         mAdapter = new MyAdapter();
         mRecyclerView.setAdapter(mAdapter);
-        mInformationList  = new ArrayList<>();
+        mInformationList = new ArrayList<>();
     }
 
     @Override
@@ -45,7 +51,7 @@ public class MainActivity extends ReceiverActivity implements View.OnClickListen
 
     @Override
     public void handleMessage(String event, String message) {
-        if (event.equals(MyMessageListener.EVENT_SUBSCRIBE_CONFIRM)){
+        if (event.equals(MyMessageListener.EVENT_SUBSCRIBE_CONFIRM) || event.equals(MyMessageListener.EVENT_SUBSCRIBE)) {
             mInformationList.add(message);
             mAdapter.setItems(mInformationList);
         }
@@ -68,7 +74,7 @@ public class MainActivity extends ReceiverActivity implements View.OnClickListen
             @Override
             protected void onPreExecute() {
                 super.onPreExecute();
-                showIndeterminateProgressDialog("Subscribe", "Please wait");
+                showIndeterminateProgressDialog(R.string.subscribe, R.string.please_wait);
             }
 
             @Override

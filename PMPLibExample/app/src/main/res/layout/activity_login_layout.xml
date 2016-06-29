@@ -2,38 +2,46 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="top">
+    android:gravity="top"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="false"
+        android:layout_centerInParent="true"
         android:layout_margin="50dp"
         android:gravity="center"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/loginId"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/idInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginBottom="10dp"
-            android:background="@android:color/holo_blue_light"
-            android:gravity="center"
-            android:inputType="text"
-            android:text="0000000"
-            android:hint="input your id" />
+            android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/loginPassword"
+            <EditText
+                android:id="@+id/loginId"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:hint="input your id"
+                android:inputType="text" />
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/passwordInputLayout"
             android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:layout_marginTop="10dp"
-            android:background="@android:color/holo_blue_light"
-            android:gravity="center"
-            android:text="156156qw"
-            android:inputType="textPassword"
-            android:hint="input your password" />
+            android:layout_height="wrap_content">
+
+            <EditText
+                android:id="@+id/loginPassword"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:hint="input your password"
+                android:inputType="textPassword" />
+        </android.support.design.widget.TextInputLayout>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/loginBtn"
@@ -42,6 +50,6 @@
             android:layout_marginTop="10dp"
 
             android:background="@android:color/holo_blue_light"
-            android:text="Log in"/>
+            android:text="Log in" />
     </LinearLayout>
 </RelativeLayout>

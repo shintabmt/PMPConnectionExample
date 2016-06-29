@@ -1,4 +1,4 @@
-package com.example.thucphan.pmplibexample;
+package com.example.thucphan.pmplibexample.managers;
 
 import com.phillip.pmp.api.SubscribeOrQueryBean;
 import com.phillip.pmp.api.SubscribeQueryRequest;
